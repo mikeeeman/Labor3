@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#define IDSIZE 10
 #define FNSIZE 30
 #define LNSIZE 30
 #define EMSIZE 50
@@ -15,7 +16,7 @@
 
 struct record
 	{
-		int id;
+		char id[IDSIZE];
 		char sex[SEXSIZE];
 		char fName[FNSIZE];
 		char lName[LNSIZE];
@@ -140,34 +141,46 @@ void addRec(struct record *studRec_t, int *itemCount)
 	listPos = studRec_t;
 	int tmp = 0;
 	int cnt = 0;
+	int cnt2 = 0;
 
 	do
 	{
-		printf("\nEnter ID-Number : ");
+		printf("\nEnter ID-Number (Max length %d): ", IDSIZE);
 		fflush(stdout);
-		scanf("%d", &tempStud.id);
+		fgets(tempStud.id, IDSIZE, stdin);
 		for(tmp = 0, cnt = 0, listPos = studRec_t ; cnt < *itemCount ; listPos++, cnt++)
 		{
-			if(tempStud.id == listPos->id)
+			for(cnt2 = 0 ; cnt2 < IDSIZE ; cnt2++)
+			{
+				if(tempStud.id[cnt2] != listPos->id[cnt2])
+				{
+					tmp = 0;
+					break;
+				}
+				else
+				{
+					tmp = 1;
+				}
+			}
+			if(tmp == 1)
 			{
 				puts("The entered ID already exists.");
-				tmp = 1;
+				break;
 			}
 		}
 	} while(tmp == 1);
 	printf("\nEnter sex (Max length %d): ", SEXSIZE);
 	fflush(stdout);
-	//fgets(tempStud.sex, SEXSIZE, stdin);
-	scanf("%s", tempStud.sex);
+	fgets(tempStud.sex, SEXSIZE, stdin);
 	printf("\nEnter first Name (Max length %d): ", FNSIZE);
 	fflush(stdout);
-	scanf("%s", tempStud.fName);
+	fgets(tempStud.fName, FNSIZE, stdin);
 	printf("\nEnter last Name (Max length %d): ", LNSIZE);
 	fflush(stdout);
-	scanf("%s", tempStud.lName);
+	fgets(tempStud.lName, LNSIZE, stdin);
 	printf("\nEnter E-Mail (Max length %d): ", EMSIZE);
 	fflush(stdout);
-	scanf("%s", tempStud.eMail);
+	fgets(tempStud.eMail, EMSIZE, stdin);
 
 	studRec_t[*itemCount] = tempStud;
 	*itemCount += 1;
@@ -228,7 +241,7 @@ void delRec(struct record *studRec_t, int *itemCount)
 //----------------------------------------------------
 void cleanRec(struct record *studRec_t, int *itemCount)
 {
-	struct record empty = {{0}};
+	struct record empty = {0};
 	studRec_t[*itemCount - 1] = empty;
 	return;
 }
@@ -321,7 +334,7 @@ void viewAll(struct record *studRec_t, int *itemCount)
 			"|       | First Name                     |            |             |            |                |              |             |\n"
 			"|       | Last Name                      |            |             |            |                |              |             |\n"
 			"|       | E-Mail                         |            |             |            |                |              |             |\n"
-			"--------------------------------------------------------------------------------------------------------------------------------"
+			"--------------------------------------------------------------------------------------------------------------------------------\n"
 			"--------------------------------------------------------------------------------------------------------------------------------");
 	for(cnt = 0 ; cnt < *itemCount ; cnt++)
 	{
@@ -339,6 +352,7 @@ void viewAll(struct record *studRec_t, int *itemCount)
 
 	return;
 }
+//----------------------------------------------------
 
 
 
