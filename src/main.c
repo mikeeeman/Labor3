@@ -3,8 +3,6 @@
  *
  *  Created on: 28.01.2016
  *      Author: Michael Meyer
- *      noch mal ein test
- *      aber das braucht es bestimmt
  */
 #include <stdio.h>
 #include <stdlib.h>
