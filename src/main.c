@@ -5,7 +5,7 @@
  *      Author: Michael Meyer
  *      etwas geändert
  *
- * hihi ole
+ * hihi
  *
  *      noch mal ein test
  */
