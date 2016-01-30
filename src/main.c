@@ -3,9 +3,6 @@
  *
  *  Created on: 28.01.2016
  *      Author: Michael Meyer
- *      etwas geändert
- *
- *
  *      noch mal ein test
  *      aber das braucht es bestimmt
  */
